@@ -8,26 +8,26 @@ export default class Customer extends BaseEntity {
   @PrimaryColumn('uuid')
   id: string
 
-  @Field()
-  @Column({ name: 'first_name' })
+  @Field(() => String)
+  @Column({ name: 'first_name', type: 'varchar' })
   firstName: string
 
-  @Field()
-  @Column({ name: 'last_name' })
+  @Field(() => String)
+  @Column({ name: 'last_name', type: 'varchar'})
   lastName: string
 
-  @Field()
-  @Column({ unique: true })
+  @Field(() => String)
+  @Column({ unique: true, type: 'varchar' })
   email: string
 
-  @Column()
+  @Column(() => String)
   password: string
 
-  @Field()
+  @Field(() => Date)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-  
-  @Field()
+
+  @Field(() => Date)
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
 }
