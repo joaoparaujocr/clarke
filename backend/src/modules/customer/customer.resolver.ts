@@ -42,7 +42,7 @@ export default class CustomerResolver {
     return this.customerService.logout(ctx.reply);
   }
 
-  @GuardDecorator(['ee'])
+  @GuardDecorator(['CUSTOMER'])
   @Query(() => Customer)
   async me(@Ctx() ctx: ContextType) {
     return this.customerService.me(ctx.req.user.id);
