@@ -7,7 +7,7 @@ export function GuardMiddleware(roles: string[]): MiddlewareFn<ContextType> {
     const { req } = context;
 
     if (!req.user || !roles.includes(req.user.type)) {
-      throw Error("Unauthorized");
+      throw new AppError(403, "You do not have permission to access this resource.");
     }
 
     return next();

@@ -40,9 +40,7 @@ export const server = async () => {
   const apolloServer = new ApolloServer<ContextType>({
     schema,
     plugins: [fastifyApolloDrainPlugin(app)],
-    formatError(formattedError, error) {
-      return formattedError
-    },
+    introspection: true
   });
 
   await apolloServer.start();

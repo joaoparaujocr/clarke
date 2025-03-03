@@ -1,5 +1,6 @@
 import { ContextType } from "@context/context.dto";
 import { MiddlewareInterface, NextFn, ResolverData } from "type-graphql";
+import { AppError } from "../error/appError";
 
 export class AuthMiddleware implements MiddlewareInterface<ContextType> {
 
@@ -15,8 +16,10 @@ export class AuthMiddleware implements MiddlewareInterface<ContextType> {
 
       return next();
     } catch (error) {
-      console.error(403, "Authentication error:", error);
-      throw new Error("Unauthorized");
+      if (error instanceof Error) {
+        throw new AppError(500, `AuthMiddleware: ${error.message}`);
+      }
+
     }
   }
 }
