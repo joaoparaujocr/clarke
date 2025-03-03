@@ -1,10 +1,16 @@
 import "reflect-metadata"
+import 'dotenv/config'
 import fastify from "fastify"
 import { appDataSource } from "./typeorm/data-source"
 import dbConn from "typeorm-fastify-plugin"
 import { ApolloServer } from "@apollo/server"
 import { buildGraphQLSchema } from "./buildGraphQLSchema"
 import fastifyApollo, { fastifyApolloDrainPlugin } from "@as-integrations/fastify";
+import fastifyJwt from "@fastify/jwt"
+import fastifyCookie from "@fastify/cookie"
+import { handleError } from "./error/handleError"
+import { ContextType } from "./context/context.dto"
+import { contextApolloServer } from "./context"
 
 export const server = async () => {
   const PORT = 3333
@@ -14,19 +20,44 @@ export const server = async () => {
     connection: appDataSource
   })
 
+  app.register(fastifyJwt, {
+    secret: process.env.SECRET_KEY as string,
+    sign: {
+      expiresIn: "60m"
+    },
+    cookie: {
+      signed: false,
+      cookieName: 'refreshToken'
+    }
+  })
+
+  app.register(fastifyCookie)
+
+  app.setErrorHandler(handleError)
+
   const schema = await buildGraphQLSchema()
 
-  const apolloServer = new ApolloServer({ schema, plugins: [fastifyApolloDrainPlugin(app)], });
+  const apolloServer = new ApolloServer<ContextType>({
+    schema,
+    plugins: [fastifyApolloDrainPlugin(app)],
+    formatError(formattedError, error) {
+      return formattedError
+    },
+  });
+
   await apolloServer.start();
 
-  await app.register(fastifyApollo(apolloServer));
+  await app.register(fastifyApollo(apolloServer), {
+    path: '/graphql',
+    context: contextApolloServer
+  });
 
-  app.get('/hello', (req, res) => res.send('Hello world'))
+  app.get('/hello', (_req, res) => res.send('Hello world'))
 
   app.listen({
     host: '0.0.0.0',
     port: PORT
-  }).then(() => console.log(`🚀 Server runnning http://localhost/${PORT}\nGraphQL http://localhost/${PORT}`))
+  }).then(() => console.log(`🚀 Server runnning http://localhost:${PORT}\n🚀 GraphQL http://localhost:${PORT}/graphql`))
 }
 
 server()
