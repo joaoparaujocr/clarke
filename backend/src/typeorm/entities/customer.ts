@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { v4 as uuid } from "uuid";
 
 @ObjectType()
 @Entity('customers')
@@ -20,7 +21,7 @@ export default class Customer extends BaseEntity {
   @Column({ unique: true, type: 'varchar' })
   email: string
 
-  @Column(() => String)
+  @Column({ type: 'varchar' })
   password: string
 
   @Field(() => Date)
@@ -30,4 +31,9 @@ export default class Customer extends BaseEntity {
   @Field(() => Date)
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
+
+  constructor() {
+    super();
+    if(!this.id) this.id = uuid()
+  }
 }
