@@ -18,8 +18,7 @@ export default class CustomerResolver {
   constructor(@inject(CustomerService) private readonly customerService: CustomerService) { }
 
   @Query(() => [Customer])
-  async Customers(@Ctx() ctx: ContextType) {
-    console.log(ctx.req.user)
+  async customers() {
     return this.customerService.getAll();
   }
 
