@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import ApolloClientProvider from "./ApolloClientProvider"
+import { BrowserRouter } from "react-router"
 
 interface ProvidersProps {
   children: ReactNode
@@ -7,7 +8,9 @@ interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => (
   <ApolloClientProvider>
-    {children}
+    <BrowserRouter>
+      {children}
+    </BrowserRouter>
   </ApolloClientProvider>
 )
 
