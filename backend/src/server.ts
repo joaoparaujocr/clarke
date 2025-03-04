@@ -8,6 +8,7 @@ import { buildGraphQLSchema } from "./buildGraphQLSchema"
 import fastifyApollo, { fastifyApolloDrainPlugin } from "@as-integrations/fastify";
 import fastifyJwt from "@fastify/jwt"
 import fastifyCookie from "@fastify/cookie"
+import cors from '@fastify/cors'
 import { handleError } from "./error/handleError"
 import { ContextType } from "./context/context.dto"
 import { contextApolloServer } from "./context"
@@ -15,6 +16,14 @@ import { contextApolloServer } from "./context"
 export const server = async () => {
   const PORT = 3333
   const app = fastify()
+
+  app.register(cors, {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    credentials: true,
+    hook: 'preHandler',
+  });
 
   app.register(dbConn, {
     connection: appDataSource

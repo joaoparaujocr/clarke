@@ -26,6 +26,7 @@
     "@apollo/server": "^4.11.3",
     "@as-integrations/fastify": "^2.1.1",
     "@fastify/cookie": "^9.0.0",
+    "@fastify/cors": "^8.5.0",
     "@fastify/jwt": "^8.0.1",
     "@swc/core": "^1.11.5",
     "bcryptjs": "^3.0.2",
