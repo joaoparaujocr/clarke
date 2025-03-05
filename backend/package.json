@@ -9,7 +9,8 @@
     "build": "tsup src --out-dir build",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate src/typeorm/migrations/$npm_config_name -d src/typeorm/data-source.ts",
-    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/typeorm/data-source.ts"
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/typeorm/data-source.ts",
+    "migration:run:prod": "NODE_ENV=production typeorm migration:run -d build/typeorm/data-source.js"
   },
   "keywords": [],
   "author": "",
