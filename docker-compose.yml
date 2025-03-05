@@ -1,7 +1,7 @@
 services:
   database:
     container_name: database_clarke
-    image: postgres:17-alpine
+    image: postgres:16-alpine
     env_file: .env
     ports:
       - 5433:5432
