@@ -1,5 +1,6 @@
-import { DataSource } from 'typeorm';
 import 'dotenv/config'
+import { DataSource } from 'typeorm';
+import entities from './entities';
 
 export const appDataSource = new DataSource(process.env.NODE_ENV === "test" ?
   {
@@ -17,11 +18,10 @@ export const appDataSource = new DataSource(process.env.NODE_ENV === "test" ?
     synchronize: process.env.NODE_ENV === "dev" ? true : false,
     logging: process.env.NODE_ENV === "dev" ? true : false,
     migrationsRun: false,
+    entities: entities,
     ...(process.env.NODE_ENV === 'dev' ? {
-      entities: ['src/typeorm/entities/*.ts'],
       migrations: ['src/typeorm/migrations/*.ts']
     } : {
-      entities: ['build/typeorm/entities/*.js'],
       migrations: ['build/typeorm/migrations/*.js']
     })
   });
