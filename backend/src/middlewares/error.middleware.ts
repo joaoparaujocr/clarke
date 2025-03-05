@@ -8,6 +8,7 @@ export class ErrorInterceptor implements MiddlewareInterface<ContextType> {
     try {
       return await next();
     } catch (err) {
+      console.log("ERROR", err)
       if (err instanceof AppError) {
         throw new GraphQLError(err.message, {
           extensions: {
