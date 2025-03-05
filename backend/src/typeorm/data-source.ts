@@ -21,7 +21,7 @@ export const appDataSource = new DataSource(process.env.NODE_ENV === "test" ?
       entities: ['src/typeorm/entities/*.ts'],
       migrations: ['src/typeorm/migrations/*.ts']
     } : {
-      entities: ['src/typeorm/entities/*.js'],
-      migrations: ['src/typeorm/migrations/*.js']
+      entities: ['build/typeorm/entities/*.js'],
+      migrations: ['build/typeorm/migrations/*.js']
     })
   });
