@@ -59,7 +59,7 @@ export const server = async () => {
     context: contextApolloServer
   });
 
-  app.get('/hello', (_req, res) => res.send('Hello world'))
+  app.get('/hello', (_req, res) => res.send('Hello world!'))
 
   app.listen({
     host: '0.0.0.0',
