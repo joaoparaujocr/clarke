@@ -1,13 +1,14 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { ReactNode } from 'react';
-const client = new ApolloClient({
-  uri: 'http://localhost:3333/graphql',
-  cache: new InMemoryCache(),
-});
 
 interface ApolloClientProviderProps {
   children: ReactNode
 }
+
+const client = new ApolloClient({
+  uri: `${import.meta.env.VITE_API_ENDPOINT}/graphql`,
+  cache: new InMemoryCache(),
+});
 
 const ApolloClientProvider = ({ children }: ApolloClientProviderProps) => (
   <ApolloProvider client={client}>
