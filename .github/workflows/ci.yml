@@ -10,8 +10,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check for changes in the backend folder
+        id: changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+
       - name: Deploy
-        if: github.ref == 'refs/heads/main'
+        if: steps.changes.outputs.backend == 'true' && github.ref == 'refs/heads/main'
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
