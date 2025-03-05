@@ -14,7 +14,7 @@ import { ContextType } from "./context/context.dto"
 import { contextApolloServer } from "./context"
 
 export const server = async () => {
-  const PORT = 3333
+  const PORT = process.env.PORT ? Number(process.env.PORT) : 3333
   const app = fastify()
 
   app.register(cors, {
