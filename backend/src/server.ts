@@ -18,7 +18,10 @@ export const server = async () => {
   const app = fastify()
 
   app.register(cors, {
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://clarkefrontend.vercel.app'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
     credentials: true,
