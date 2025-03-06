@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import ApolloClientProvider from "./ApolloClientProvider"
 import { BrowserRouter } from "react-router"
 import { Toaster } from "react-hot-toast"
+import AuthProvider from "./AuthProvider"
 
 interface ProvidersProps {
   children: ReactNode
@@ -10,7 +11,9 @@ interface ProvidersProps {
 const Providers = ({ children }: ProvidersProps) => (
   <ApolloClientProvider>
     <BrowserRouter>
-      {children}
+      <AuthProvider>
+        {children}
+      </AuthProvider>
     </BrowserRouter>
     <Toaster />
   </ApolloClientProvider>

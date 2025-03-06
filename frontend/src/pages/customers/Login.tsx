@@ -11,13 +11,14 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { customerLogin } from '../../validations/customerLogin';
 import { gql } from '../../__generated__';
 import { ApolloError, useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
+import useAuth from '../../hooks/useAuth';
 
 interface InputValues {
   email: string
@@ -58,7 +59,7 @@ const AUTH_CUSTOMER = gql(`
 
 export default function Login(props: { disableCustomTheme?: boolean }) {
   const [authCustomer] = useMutation(AUTH_CUSTOMER)
-  const navigate = useNavigate()
+  const { refetch } = useAuth()
 
   const { control, formState: { errors }, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -78,7 +79,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
 
       if (response.data?.authCustomer.token) {
         toast.success('Seu usuario foi logado com sucesso')
-        navigate('/customers/login')
+        refetch()
       }
     } catch (error) {
       if (error instanceof ApolloError) {
