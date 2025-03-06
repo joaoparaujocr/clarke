@@ -67,7 +67,13 @@ export class CustomerService {
   }
 
   async me(id: string) {
-    return await this.customerRepository.findById(id)
+    const customer = await this.customerRepository.findById(id)
+    
+    if (customer) {
+      return {...customer, type: 'CUSTOMER'}
+    }
+
+    return customer
   }
 
   logout(reply: FastifyReply): Message {

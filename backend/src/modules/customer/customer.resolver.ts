@@ -1,15 +1,16 @@
 import { Resolver, Query, Mutation, Arg, Ctx, Authorized, UseMiddleware } from 'type-graphql';
+import { inject, injectable } from 'tsyringe';
+import { validateOrReject } from "class-validator";
 import Customer from '@typeorm/entities/customer';
+import { GuardDecorator } from '@decorators/guardType';
+import { ContextType } from '@context/context.dto';
 import { CreateCustomerInput } from './dtos/createCustomerInput.dto';
 import { AuthCustomerResponse } from './dtos/authCustomerResponse.dto';
-import { validateOrReject } from "class-validator";
-import { CustomerService } from './customer.service';
-import { inject, injectable } from 'tsyringe';
 import { AuthCustomerInput } from './dtos/authCustomerInput.dto';
-import { ContextType } from '@context/context.dto';
 import { Message } from './dtos/message.dto';
+import { CustomerService } from './customer.service';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
-import { GuardDecorator } from '@decorators/guardType';
+import { CustomerWithType } from './dtos/customerWithType.dto';
 
 @injectable()
 @UseMiddleware(AuthMiddleware)
@@ -42,8 +43,8 @@ export default class CustomerResolver {
   }
 
   @GuardDecorator(['CUSTOMER'])
-  @Query(() => Customer)
+  @Query(() => CustomerWithType)
   async me(@Ctx() ctx: ContextType) {
-    return this.customerService.me(ctx.req.user.id);
+    return await this.customerService.me(ctx.req.user.id);
   }
 }
