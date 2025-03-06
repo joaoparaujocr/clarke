@@ -2,22 +2,23 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { gql, useQuery } from '@apollo/client';
+import { gql } from './__generated__/gql'
+import { useQuery } from '@apollo/client'
 
-const GET_CUSTOMERS = gql`
+const GET_CUSTOMERS = gql(`
   query Customers {
     customers {
       email
     }
   }
-`;
+`);
 
 function App() {
   const [count, setCount] = useState(0)
   const { loading, error, data } = useQuery(GET_CUSTOMERS);
 
   useEffect(() => {
-    console.log(data)
+    console.log(data?.customers.map(c => c.email))
   }, [data])
 
   if (loading) return <p>Loading...</p>;
