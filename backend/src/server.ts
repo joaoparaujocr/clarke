@@ -20,7 +20,8 @@ export const server = async () => {
   app.register(cors, {
     origin: [
       'http://localhost:3000',
-      'https://clarkefrontend.vercel.app'
+      'https://clarkefrontend.vercel.app',
+      'http://localhost:4173'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],

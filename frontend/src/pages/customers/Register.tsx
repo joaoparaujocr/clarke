@@ -55,8 +55,8 @@ const REGISTER_CUSTOMER = gql(`
 `)
 
 export default function Register(props: { disableCustomTheme?: boolean }) {
-  const navigate = useNavigate()
   const [registerCustomer, { loading }] = useMutation(REGISTER_CUSTOMER);
+  const navigate = useNavigate()
 
   const { control, handleSubmit, formState: { errors } } = useForm<InputFields>({
     defaultValues: {
