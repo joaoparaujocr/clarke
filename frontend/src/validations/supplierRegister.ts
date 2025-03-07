@@ -16,12 +16,6 @@ export const supplierRegister = z.object({
         ].includes(file.type),
       { message: "Invalid image file type" }
     ),
-  costPerKwh: z
-    .string()
-    .transform((val) => parseFloat(val))
-    .pipe(z.number().positive('O número precisa ser positivo')),
-  minimumKwhLimit: z
-    .string()
-    .transform((val) => parseFloat(val))
-    .pipe(z.number().positive('O número precisa ser positivo'))
+  costPerKwh: z.number().positive('O número precisa ser positivo'),
+  minimumKwhLimit: z.number().positive('O número precisa ser positivo')
 })

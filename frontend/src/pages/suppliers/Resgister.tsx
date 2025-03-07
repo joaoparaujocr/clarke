@@ -21,6 +21,7 @@ import { useState } from 'react';
 import api from '../../api';
 import { Divider } from '@mui/material';
 import { NavLink } from 'react-router';
+import { NumericFormat } from 'react-number-format'
 
 type InputFields = z.infer<typeof supplierRegister>
 
@@ -150,7 +151,6 @@ export default function Register() {
           >
             <Button
               component="label"
-              role={undefined}
               variant="contained"
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
@@ -239,30 +239,29 @@ export default function Register() {
             <Controller
               control={control}
               name='costPerKwh'
-              render={({ field }) => (
+              render={({ field: { name, onBlur, value, disabled } }) => (
                 <FormControl>
                   <FormLabel
-                    htmlFor={field.name}
+                    htmlFor={name}
                     sx={{
                       textAlign: 'left'
                     }}
                   >
                     Custo por kWh
                   </FormLabel>
-                  <TextField
-                    slotProps={{
-                      input: { ...field },
-                      formHelperText: {
-                        sx: {
-                          marginLeft: 0
-                        }
-                      }
-                    }}
+                  <NumericFormat
+                    name={name}
+                    onBlur={onBlur}
+                    value={value}
+                    disabled={disabled}
+                    customInput={TextField}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="R$ "
+                    onValueChange={(values) => setValue('costPerKwh', values?.floatValue || 0)}
                     error={!!errors.costPerKwh?.message}
                     helperText={errors.costPerKwh?.message}
                     placeholder="Custo por kWh"
-                    autoFocus
-                    required
                     fullWidth
                     variant="outlined"
                     color={errors.costPerKwh?.message ? 'error' : 'primary'}
@@ -273,30 +272,29 @@ export default function Register() {
             <Controller
               control={control}
               name='minimumKwhLimit'
-              render={({ field }) => (
+              render={({ field: { name, onBlur, value, disabled } }) => (
                 <FormControl>
                   <FormLabel
-                    htmlFor={field.name}
+                    htmlFor={name}
                     sx={{
                       textAlign: 'left'
                     }}
                   >
                     Limite mínimo de kWh
                   </FormLabel>
-                  <TextField
-                    slotProps={{
-                      input: { ...field },
-                      formHelperText: {
-                        sx: {
-                          marginLeft: 0
-                        }
-                      }
-                    }}
+                  <NumericFormat
+                    name={name}
+                    onBlur={onBlur}
+                    value={value}
+                    disabled={disabled}
+                    customInput={TextField}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix='kWh '
+                    onValueChange={(values) => setValue('minimumKwhLimit', values?.floatValue || 0)}
                     error={!!errors.minimumKwhLimit?.message}
                     helperText={errors.minimumKwhLimit?.message}
                     placeholder="Limite mínimo de kWh"
-                    autoFocus
-                    required
                     fullWidth
                     variant="outlined"
                     color={errors.minimumKwhLimit?.message ? 'error' : 'primary'}

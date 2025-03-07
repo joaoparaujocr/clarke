@@ -2,6 +2,7 @@ import { Avatar, Rating } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { SuppliersQuery } from '../../__generated__/graphql';
+import { formatMoney } from '../../utils/formatMoney';
 
 const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
   {
@@ -48,9 +49,13 @@ const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
     field: 'costPerKwh',
     headerName: 'Custo/Kwh',
     type: 'number',
-    width: 110,
+    width: 160,
     align: 'center',
     headerAlign: 'center',
+    valueFormatter: (value) => {
+      console.log(value)
+      return formatMoney(value)
+    }
   },
   {
     field: 'evaluationAverage',
