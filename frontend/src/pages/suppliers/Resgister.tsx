@@ -70,6 +70,7 @@ const REGISTER_SUPPLIER = gql(`
 `)
 
 export default function Register() {
+  const [isLoading, setIsLoading] = useState(false)
   const [registerSupplier, { loading }] = useMutation(REGISTER_SUPPLIER);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -91,6 +92,7 @@ export default function Register() {
   }
 
   const handleSumitForm: SubmitHandler<InputFields> = async (data) => {
+    setIsLoading(true)
     try {
       if (!selectedImage) {
         alert('Por favor, selecione uma imagem');
@@ -123,6 +125,8 @@ export default function Register() {
       if (error instanceof ApolloError) {
         toast.error(error.message)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -306,7 +310,7 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              loading={loading}
+              loading={loading || isLoading}
               loadingIndicator={<CircularProgress size={24} sx={{ color: "primary" }} />}
             >
               Registrar-se
