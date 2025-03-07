@@ -4,9 +4,13 @@ import { CreateSupplierInput } from "./dtos/createSupplierInput.dto";
 
 @injectable()
 export class SupplierService {
-  constructor(@inject(SupplierRepository) private readonly supplierRepository: SupplierRepository) {}
+  constructor(@inject(SupplierRepository) private readonly supplierRepository: SupplierRepository) { }
 
   async create(data: CreateSupplierInput) {
     return await this.supplierRepository.create(data)
+  }
+
+  async getAll(search?: number) {
+    return await this.supplierRepository.getAll(search)
   }
 }
