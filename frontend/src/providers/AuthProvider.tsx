@@ -24,7 +24,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     if (user) {
-      if (['/customers/register', '/customers/login', '/'].includes(location.pathname)) {
+      if ([...publicPaths, '/'].includes(location.pathname)) {
         navigate('/customers/home')
       } else {
         navigate(location.pathname)

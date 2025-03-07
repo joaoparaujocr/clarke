@@ -214,6 +214,17 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                 </Typography>
               </NavLink>
             </Box>
+            <Box sx={{ textAlign: 'center' }}>
+              Que ser um fornecedor?{' '}
+              <NavLink to='/suppliers/register'>
+                <Typography
+                  variant="body2"
+                  sx={{ alignSelf: 'center' }}
+                >
+                  Registrar-se como fornecedor
+                </Typography>
+              </NavLink>
+            </Box>
           </Box>
         </Card>
       </SignInContainer>

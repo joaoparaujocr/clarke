@@ -20,6 +20,8 @@ import toast from 'react-hot-toast';
 import { supplierRegister } from '../../validations/supplierRegister';
 import { useState } from 'react';
 import api from '../../api';
+import { Divider } from '@mui/material';
+import { NavLink } from 'react-router';
 
 type InputFields = z.infer<typeof supplierRegister>
 
@@ -312,6 +314,20 @@ export default function Register(props: { disableCustomTheme?: boolean }) {
             >
               Registrar-se
             </Button>
+            <Divider />
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ textAlign: 'center' }}>
+                É um cliente ?{' '}
+                <NavLink to='/customers/login'>
+                  <Typography
+                    variant="body2"
+                    sx={{ alignSelf: 'center' }}
+                  >
+                    Entrar
+                  </Typography>
+                </NavLink>
+              </Box>
+            </Box>
           </Box>
         </Card>
       </SignInContainer>
