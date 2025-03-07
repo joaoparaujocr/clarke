@@ -19,7 +19,9 @@ export default function Layout() {
           justifyContent: 'space-between',
           maxWidth: '1200px',
           margin: '0 auto',
-          width: '100%'
+          width: '100%',
+          paddingX: 0,
+          padding: '0 20px'
         }}>
           <Typography>
             Bem-vindo, {`${user?.firstName} ${user?.lastName}`}

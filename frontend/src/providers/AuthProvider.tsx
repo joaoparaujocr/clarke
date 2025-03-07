@@ -30,7 +30,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         navigate(location.pathname)
       }
     }
-  }, [error, loading, user])
+  }, [error, loading, user, skip])
 
   if (loading) {
     return (
