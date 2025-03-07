@@ -25,6 +25,10 @@ export default class Supplier extends BaseEntity {
   @Column({ type: 'decimal', name: 'cost_per_kwh', precision: 20, scale: 4 })
   costPerKwh: number
 
+  @Field(() => Number)
+  @Column({ type: 'decimal', name: 'minimum_kwh_limit', precision: 20, scale: 4 })
+  minimumKwhLimit: number
+
   constructor() {
     super();
     if (!this.id) this.id = uuid()
