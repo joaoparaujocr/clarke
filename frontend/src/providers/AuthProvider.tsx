@@ -12,10 +12,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate()
   const location = useLocation()
   const { user, loading, error, refetch, dispatch: dispatchMe, skip} = useMe()
+  const publicPaths = ['/customers/register', '/customers/login', '/suppliers/register']
 
   useEffect(() => {
     if (!loading && !user && (error || skip)) {
-      if (location.pathname === '/customers/register') {
+      if (publicPaths.includes(location.pathname)) {
         navigate(location.pathname)
       } else {
         navigate('/customers/login')

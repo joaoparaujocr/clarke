@@ -2,6 +2,8 @@
 /backend/build
 /backend/.env
 /.env
+/.env.local
+/.env.prod
 
 /frontend/node_modules
 .vercel
