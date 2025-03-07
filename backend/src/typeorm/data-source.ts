@@ -15,7 +15,7 @@ export const appDataSource = new DataSource(process.env.NODE_ENV === "test" ?
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
-    synchronize: process.env.NODE_ENV === "dev" ? true : false,
+    synchronize: false,
     logging: process.env.NODE_ENV === "dev" ? true : false,
     migrationsRun: false,
     entities: entities,
