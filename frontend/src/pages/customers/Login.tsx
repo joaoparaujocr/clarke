@@ -79,6 +79,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
       })
 
       if (response.data?.authCustomer.token) {
+        localStorage.setItem('@token:clarke', response.data.authCustomer.token)
         toast.success('Seu usuario foi logado com sucesso')
         refetch()
       }

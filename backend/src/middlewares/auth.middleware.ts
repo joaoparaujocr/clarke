@@ -11,7 +11,7 @@ export class AuthMiddleware implements MiddlewareInterface<ContextType> {
       const token = req.cookies?.refreshToken || req.headers['authorization']?.split(' ')[1];
 
       if (token) {
-        await req.jwtVerify();
+        await req.jwtVerify({ onlyCookie: false });
       }
 
       return next();

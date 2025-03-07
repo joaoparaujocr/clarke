@@ -48,6 +48,7 @@ export class CustomerService {
     const token = await reply.jwtSign(payload, {
       sign: {
         sub: id,
+        expiresIn: '1d'
       }
     })
 
@@ -57,8 +58,6 @@ export class CustomerService {
         expiresIn: '7d'
       }
     })
-
-    console.log("Node env", process.env.NODE_ENV)
 
     reply.setCookie('refreshToken', refreshToken, {
       httpOnly: true,
