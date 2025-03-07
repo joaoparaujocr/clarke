@@ -10,7 +10,6 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import AppTheme from '../../shared-theme/AppTheme';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -69,7 +68,7 @@ const REGISTER_SUPPLIER = gql(`
   }
 `)
 
-export default function Register(props: { disableCustomTheme?: boolean }) {
+export default function Register() {
   const [registerSupplier, { loading }] = useMutation(REGISTER_SUPPLIER);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -127,7 +126,7 @@ export default function Register(props: { disableCustomTheme?: boolean }) {
   }
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%">
         <Card variant="outlined">
@@ -331,6 +330,6 @@ export default function Register(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </SignInContainer>
-    </AppTheme>
+    </>
   );
 }

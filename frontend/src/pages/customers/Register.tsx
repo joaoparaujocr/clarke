@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import AppTheme from '../../shared-theme/AppTheme';
 import { NavLink, useNavigate } from 'react-router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -54,7 +53,7 @@ const REGISTER_CUSTOMER = gql(`
   }
 `)
 
-export default function Register(props: { disableCustomTheme?: boolean }) {
+export default function Register() {
   const [registerCustomer, { loading }] = useMutation(REGISTER_CUSTOMER);
   const navigate = useNavigate()
 
@@ -88,7 +87,7 @@ export default function Register(props: { disableCustomTheme?: boolean }) {
   }
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%">
         <Card variant="outlined">
@@ -277,6 +276,6 @@ export default function Register(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </SignInContainer>
-    </AppTheme>
+    </>
   );
 }

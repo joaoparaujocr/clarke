@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import { NavLink } from 'react-router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -58,7 +57,7 @@ const AUTH_CUSTOMER = gql(`
   }
 `)
 
-export default function Login(props: { disableCustomTheme?: boolean }) {
+export default function Login() {
   const [authCustomer, { loading }] = useMutation(AUTH_CUSTOMER)
   const { refetch, dispatchMe } = useAuth()
 
@@ -92,7 +91,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
   }
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%">
         <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
@@ -228,6 +227,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </SignInContainer>
-    </AppTheme>
+    </>
   );
 }
