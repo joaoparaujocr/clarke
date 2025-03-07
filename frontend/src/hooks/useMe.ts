@@ -2,12 +2,14 @@ import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
 import { useEffect, useReducer } from "react";
 import { MeQuery } from "../__generated__/graphql";
+import { TOKEN } from "../constants";
 
-interface IMeState {
+export interface IMeState {
   user?: MeQuery['me']
+  skip: boolean
 }
 
-type Action<T extends keyof IMeState> = {
+export type Action<T extends keyof IMeState> = {
   field: T;
   value: IMeState[T];
 };
@@ -33,9 +35,10 @@ const reducer = (state: IMeState, action: Action<keyof IMeState>) => {
 }
 
 const useMe = () => {
-  const [state, dispatch] = useReducer(reducer, { user: undefined })
+  const [state, dispatch] = useReducer(reducer, { user: undefined, skip: !localStorage.getItem(TOKEN) })
   const { data, loading, error, refetch } = useQuery(AUTH_ME, {
-    errorPolicy: 'all'
+    errorPolicy: 'all',
+    skip: state.skip
   })
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const useMe = () => {
     }
   }, [data?.me, loading])
 
-  return { ...state, loading, error, refetch }
+  return { ...state, loading, error, refetch, dispatch}
 }
 
 export default useMe

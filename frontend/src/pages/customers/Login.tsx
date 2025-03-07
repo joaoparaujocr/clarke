@@ -60,7 +60,7 @@ const AUTH_CUSTOMER = gql(`
 
 export default function Login(props: { disableCustomTheme?: boolean }) {
   const [authCustomer, { loading }] = useMutation(AUTH_CUSTOMER)
-  const { refetch } = useAuth()
+  const { refetch, dispatchMe } = useAuth()
 
   const { control, formState: { errors }, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -81,6 +81,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
       if (response.data?.authCustomer.token) {
         localStorage.setItem('@token:clarke', response.data.authCustomer.token)
         toast.success('Seu usuario foi logado com sucesso')
+        dispatchMe({ field: 'skip', value: false })
         refetch()
       }
     } catch (error) {

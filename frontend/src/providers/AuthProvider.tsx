@@ -11,10 +11,10 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, loading, error, refetch } = useMe()
+  const { user, loading, error, refetch, dispatch: dispatchMe, skip} = useMe()
 
   useEffect(() => {
-    if (!loading && !user && error) {
+    if (!loading && !user && (error || skip)) {
       if (location.pathname === '/customers/register') {
         navigate(location.pathname)
       } else {
@@ -40,7 +40,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   return (
     <AuthContext value={{
       user,
-      refetch
+      refetch,
+      dispatchMe
     }}>
       {children}
     </AuthContext>

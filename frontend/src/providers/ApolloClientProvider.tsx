@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@ap
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import { ReactNode } from 'react';
+import { TOKEN } from '../constants';
 
 interface ApolloClientProviderProps {
   children: ReactNode
@@ -23,7 +24,7 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('@token:clarke');
+  const token = localStorage.getItem(TOKEN);
 
   return {
     headers: {
