@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import { NavLink, useNavigate } from 'react-router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -95,7 +94,6 @@ export default function Login() {
     <>
       <CssBaseline enableColorScheme />
       <SignInContainer display='flex' direction="column" width="100%" sx={{ minHeight: '100vh' }}>
-        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           <Typography
             component="h1"
