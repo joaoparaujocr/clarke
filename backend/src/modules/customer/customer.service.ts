@@ -63,7 +63,7 @@ export class CustomerService {
     reply.setCookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : 'lax',
-      secure: process.env.NODE_ENV !== 'dev',
+      secure: false,
       path: '/',
       domain: process.env.NODE_ENV !== 'dev' ? 'clarkefrontend.vercel.app' : 'localhost',
       maxAge: 1000 * 60 * 60 * 24 * 7,
