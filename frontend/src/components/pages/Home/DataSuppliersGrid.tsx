@@ -1,8 +1,8 @@
 import { Avatar, Rating } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { SuppliersQuery } from '../../__generated__/graphql';
-import { formatMoney } from '../../utils/formatMoney';
+import { SuppliersQuery } from '../../../__generated__/graphql';
+import { formatMoney } from '../../../utils/formatMoney';
 
 const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
   {

@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from "react"
 import { AuthContext } from "../context"
 import useMe from "../hooks/useMe"
 import { useLocation, useNavigate } from "react-router"
-import { CircularProgress } from "@mui/material"
+import { Box, CircularProgress } from "@mui/material"
 
 interface AuthProviderProps {
   children: ReactNode
@@ -34,7 +34,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   if (loading) {
     return (
-      <CircularProgress size='100px' />
+      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <CircularProgress size='100px' />
+      </Box>
     )
   }
 

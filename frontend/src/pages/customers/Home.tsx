@@ -1,7 +1,7 @@
 import { IconButton, InputAdornment, InputBase, Paper, Stack } from "@mui/material";
 import { gql } from "../../__generated__";
 import { useQuery } from "@apollo/client";
-import DataSuppliersGrid from "../../components/pages/DataSuppliersGrid";
+import DataSuppliersGrid from "../../components/pages/Home/DataSuppliersGrid";
 import SearchIcon from '@mui/icons-material/Search';
 import { ChangeEvent, useState } from "react";
 
