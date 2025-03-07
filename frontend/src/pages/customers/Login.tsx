@@ -19,6 +19,7 @@ import { gql } from '../../__generated__';
 import { ApolloError, useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
+import { CircularProgress } from '@mui/material';
 
 interface InputValues {
   email: string
@@ -58,7 +59,7 @@ const AUTH_CUSTOMER = gql(`
 `)
 
 export default function Login(props: { disableCustomTheme?: boolean }) {
-  const [authCustomer] = useMutation(AUTH_CUSTOMER)
+  const [authCustomer, { loading }] = useMutation(AUTH_CUSTOMER)
   const { refetch } = useAuth()
 
   const { control, formState: { errors }, handleSubmit } = useForm<InputValues>({
@@ -192,6 +193,8 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
               fullWidth
               variant="contained"
               type='submit'
+              loading={loading}
+              loadingIndicator={<CircularProgress size={24} sx={{ color: "primary" }} />}
             >
               Entrar
             </Button>

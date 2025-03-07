@@ -58,7 +58,16 @@ export class CustomerService {
       }
     })
 
-    reply.setCookie('refreshToken', refreshToken, { httpOnly: true, sameSite: true, secure: true, path: '/' })
+    console.log("Node env", process.env.NODE_ENV)
+
+    reply.setCookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV !== 'dev',
+      path: '/',
+      domain: process.env.NODE_ENV !== 'dev' ? 'clarkefrontend.vercel.app' : 'localhost',
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    })
 
     return {
       token,
@@ -68,16 +77,23 @@ export class CustomerService {
 
   async me(id: string) {
     const customer = await this.customerRepository.findById(id)
-    
+
     if (customer) {
-      return {...customer, type: 'CUSTOMER'}
+      return { ...customer, type: 'CUSTOMER' }
     }
 
     return customer
   }
 
   logout(reply: FastifyReply): Message {
-    reply.clearCookie('refreshToken', { path: '/', httpOnly: true, sameSite: true, secure: true });
+    reply.clearCookie('refreshToken', {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : 'lax',
+      secure: false,
+      path: '/',
+      domain: process.env.NODE_ENV !== 'dev' ? 'clarkefrontend.vercel.app' : 'localhost',
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
 
     return { message: 'Logout successful' }
   }
