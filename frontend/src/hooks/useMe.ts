@@ -47,7 +47,7 @@ const useMe = () => {
     }
   }, [data?.me, loading])
 
-  return { ...state, loading, error, refetch, dispatch}
+  return { ...state, loading, error, refetch, dispatch }
 }
 
 export default useMe

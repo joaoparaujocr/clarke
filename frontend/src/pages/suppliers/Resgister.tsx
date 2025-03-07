@@ -128,7 +128,7 @@ export default function Register() {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%">
+      <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%" sx={{ minHeight: '100vh' }}>
         <Card variant="outlined">
           <Typography
             component="h1"

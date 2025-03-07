@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { customerLogin } from '../../validations/customerLogin';
@@ -32,7 +32,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
   gap: theme.spacing(2),
   margin: 'auto',
-  minWidth: '380px',
+  maxWidth: '380px',
   boxShadow:
     'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
   ...theme.applyStyles('dark', {
@@ -42,7 +42,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const SignInContainer = styled(Stack)(() => ({
-  minHeight: '100%',
   width: '100%'
 }));
 
@@ -58,6 +57,7 @@ const AUTH_CUSTOMER = gql(`
 `)
 
 export default function Login() {
+  const navigate = useNavigate()
   const [authCustomer, { loading }] = useMutation(AUTH_CUSTOMER)
   const { refetch, dispatchMe } = useAuth()
 
@@ -82,6 +82,7 @@ export default function Login() {
         toast.success('Seu usuario foi logado com sucesso')
         dispatchMe({ field: 'skip', value: false })
         refetch()
+        navigate('/customers/home')
       }
     } catch (error) {
       if (error instanceof ApolloError) {
@@ -93,7 +94,7 @@ export default function Login() {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <SignInContainer direction="column" justifyContent="center" alignItems='center' width="100%">
+      <SignInContainer display='flex' direction="column" width="100%" sx={{ minHeight: '100vh' }}>
         <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           <Typography

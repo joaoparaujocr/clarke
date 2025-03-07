@@ -15,12 +15,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  query Me {\n    me {\n      id\n      email\n      firstName\n      lastName\n      type\n    }\n  }\n": typeof types.MeDocument,
+    "\n  query Suppliers($search: Float) {\n    suppliers(search: $search) {\n      costPerKwh\n      evaluationAverage\n      id\n      logoUrl\n      minimumKwhLimit\n      name\n      state\n    }\n  }\n": typeof types.SuppliersDocument,
     "\n  mutation AuthCustomer($authCustomerData: AuthCustomerInput!) {\n    authCustomer(data: $authCustomerData) {\n      token\n      customer {\n        email\n      }\n    }\n  }\n": typeof types.AuthCustomerDocument,
     "\n  mutation CreateCustomer($data: CreateCustomerInput!) {\n    createCustomer(data: $data) {\n      email\n      firstName\n      lastName\n    }\n  }\n": typeof types.CreateCustomerDocument,
     "\n  mutation CreateSupplier($data: CreateSupplierInput!) {\n    createSupplier(data: $data) {\n      id\n    }\n  }\n": typeof types.CreateSupplierDocument,
 };
 const documents: Documents = {
     "\n  query Me {\n    me {\n      id\n      email\n      firstName\n      lastName\n      type\n    }\n  }\n": types.MeDocument,
+    "\n  query Suppliers($search: Float) {\n    suppliers(search: $search) {\n      costPerKwh\n      evaluationAverage\n      id\n      logoUrl\n      minimumKwhLimit\n      name\n      state\n    }\n  }\n": types.SuppliersDocument,
     "\n  mutation AuthCustomer($authCustomerData: AuthCustomerInput!) {\n    authCustomer(data: $authCustomerData) {\n      token\n      customer {\n        email\n      }\n    }\n  }\n": types.AuthCustomerDocument,
     "\n  mutation CreateCustomer($data: CreateCustomerInput!) {\n    createCustomer(data: $data) {\n      email\n      firstName\n      lastName\n    }\n  }\n": types.CreateCustomerDocument,
     "\n  mutation CreateSupplier($data: CreateSupplierInput!) {\n    createSupplier(data: $data) {\n      id\n    }\n  }\n": types.CreateSupplierDocument,
@@ -44,6 +46,10 @@ export function gql(source: string): unknown;
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query Me {\n    me {\n      id\n      email\n      firstName\n      lastName\n      type\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      id\n      email\n      firstName\n      lastName\n      type\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query Suppliers($search: Float) {\n    suppliers(search: $search) {\n      costPerKwh\n      evaluationAverage\n      id\n      logoUrl\n      minimumKwhLimit\n      name\n      state\n    }\n  }\n"): (typeof documents)["\n  query Suppliers($search: Float) {\n    suppliers(search: $search) {\n      costPerKwh\n      evaluationAverage\n      id\n      logoUrl\n      minimumKwhLimit\n      name\n      state\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

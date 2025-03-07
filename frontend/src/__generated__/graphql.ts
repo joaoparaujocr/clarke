@@ -51,7 +51,17 @@ export type Customer = {
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
+  supplierHistory?: Maybe<Array<CustomerSupplierHistory>>;
   updatedAt: Scalars['DateTimeISO']['output'];
+};
+
+export type CustomerSupplierHistory = {
+  __typename?: 'CustomerSupplierHistory';
+  createdAt: Scalars['DateTimeISO']['output'];
+  customer: Customer;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  id: Scalars['ID']['output'];
+  supplier: Supplier;
 };
 
 export type CustomerWithType = {
@@ -61,6 +71,7 @@ export type CustomerWithType = {
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
+  supplierHistory?: Maybe<Array<CustomerSupplierHistory>>;
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTimeISO']['output'];
 };
@@ -97,11 +108,30 @@ export type Query = {
   __typename?: 'Query';
   customers: Array<Customer>;
   me: CustomerWithType;
+  suppliers: Array<ResponseGetAllSupplier>;
+};
+
+
+export type QuerySuppliersArgs = {
+  search?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type ResponseGetAllSupplier = {
+  __typename?: 'ResponseGetAllSupplier';
+  costPerKwh: Scalars['Float']['output'];
+  customerHistory?: Maybe<Array<CustomerSupplierHistory>>;
+  evaluationAverage: Scalars['Float']['output'];
+  id: Scalars['ID']['output'];
+  logoUrl: Scalars['String']['output'];
+  minimumKwhLimit: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+  state: Scalars['String']['output'];
 };
 
 export type Supplier = {
   __typename?: 'Supplier';
   costPerKwh: Scalars['Float']['output'];
+  customerHistory?: Maybe<Array<CustomerSupplierHistory>>;
   id: Scalars['ID']['output'];
   logoUrl: Scalars['String']['output'];
   minimumKwhLimit: Scalars['Float']['output'];
@@ -113,6 +143,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'CustomerWithType', id: string, email: string, firstName: string, lastName: string, type: string } };
+
+export type SuppliersQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type SuppliersQuery = { __typename?: 'Query', suppliers: Array<{ __typename?: 'ResponseGetAllSupplier', costPerKwh: number, evaluationAverage: number, id: string, logoUrl: string, minimumKwhLimit: number, name: string, state: string }> };
 
 export type AuthCustomerMutationVariables = Exact<{
   authCustomerData: AuthCustomerInput;
@@ -137,6 +174,7 @@ export type CreateSupplierMutation = { __typename?: 'Mutation', createSupplier: 
 
 
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const SuppliersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Suppliers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"search"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"suppliers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"search"},"value":{"kind":"Variable","name":{"kind":"Name","value":"search"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"costPerKwh"}},{"kind":"Field","name":{"kind":"Name","value":"evaluationAverage"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"logoUrl"}},{"kind":"Field","name":{"kind":"Name","value":"minimumKwhLimit"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"state"}}]}}]}}]} as unknown as DocumentNode<SuppliersQuery, SuppliersQueryVariables>;
 export const AuthCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AuthCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"authCustomerData"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"authCustomerData"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]} as unknown as DocumentNode<AuthCustomerMutation, AuthCustomerMutationVariables>;
 export const CreateCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<CreateCustomerMutation, CreateCustomerMutationVariables>;
 export const CreateSupplierDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSupplier"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSupplierInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSupplier"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateSupplierMutation, CreateSupplierMutationVariables>;
