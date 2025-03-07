@@ -36,6 +36,14 @@ export type CreateCustomerInput = {
   password: Scalars['String']['input'];
 };
 
+export type CreateSupplierInput = {
+  costPerKwh: Scalars['Float']['input'];
+  logoUrl: Scalars['String']['input'];
+  minimumKwhLimit: Scalars['Float']['input'];
+  name: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+};
+
 export type Customer = {
   __typename?: 'Customer';
   createdAt: Scalars['DateTimeISO']['output'];
@@ -66,6 +74,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   authCustomer: AuthCustomerResponse;
   createCustomer: Customer;
+  createSupplier: Supplier;
   logout: Message;
 };
 
@@ -79,16 +88,26 @@ export type MutationCreateCustomerArgs = {
   data: CreateCustomerInput;
 };
 
+
+export type MutationCreateSupplierArgs = {
+  data: CreateSupplierInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   customers: Array<Customer>;
   me: CustomerWithType;
 };
 
-export type CustomersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CustomersQuery = { __typename?: 'Query', customers: Array<{ __typename?: 'Customer', email: string }> };
+export type Supplier = {
+  __typename?: 'Supplier';
+  costPerKwh: Scalars['Float']['output'];
+  id: Scalars['ID']['output'];
+  logoUrl: Scalars['String']['output'];
+  minimumKwhLimit: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+  state: Scalars['String']['output'];
+};
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -109,8 +128,15 @@ export type CreateCustomerMutationVariables = Exact<{
 
 export type CreateCustomerMutation = { __typename?: 'Mutation', createCustomer: { __typename?: 'Customer', email: string, firstName: string, lastName: string } };
 
+export type CreateSupplierMutationVariables = Exact<{
+  data: CreateSupplierInput;
+}>;
 
-export const CustomersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Customers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<CustomersQuery, CustomersQueryVariables>;
+
+export type CreateSupplierMutation = { __typename?: 'Mutation', createSupplier: { __typename?: 'Supplier', id: string } };
+
+
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
 export const AuthCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AuthCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"authCustomerData"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"authCustomerData"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]} as unknown as DocumentNode<AuthCustomerMutation, AuthCustomerMutationVariables>;
 export const CreateCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<CreateCustomerMutation, CreateCustomerMutationVariables>;
+export const CreateSupplierDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSupplier"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSupplierInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSupplier"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateSupplierMutation, CreateSupplierMutationVariables>;
