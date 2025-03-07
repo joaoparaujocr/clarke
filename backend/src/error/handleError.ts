@@ -3,6 +3,8 @@ import { AppError } from './appError'
 import { ZodError } from 'zod'
 
 export async function handleError(error: FastifyError, request: FastifyRequest, reply: FastifyReply) {
+	console.log(error)
+
 	if (error instanceof AppError) {
 		return reply.status(error.statusCode).send(error)
 	}
