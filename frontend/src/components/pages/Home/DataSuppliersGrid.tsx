@@ -34,14 +34,14 @@ const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
   {
     field: 'minimumKwhLimit',
     headerName: 'Limite mínimo de kWh',
-    width: 150,
+    width: 200,
     align: 'center',
     headerAlign: 'center'
   },
   {
     field: 'state',
     headerName: 'Estado',
-    width: 150,
+    width: 200,
     align: 'center',
     headerAlign: 'center'
   },
@@ -49,7 +49,7 @@ const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
     field: 'costPerKwh',
     headerName: 'Custo/Kwh',
     type: 'number',
-    width: 160,
+    width: 310,
     align: 'center',
     headerAlign: 'center',
     valueFormatter: (value) => {
@@ -61,7 +61,7 @@ const columns: GridColDef<(SuppliersQuery['suppliers'])[number]>[] = [
     field: 'evaluationAverage',
     headerName: 'Média de avaliação',
     type: 'custom',
-    width: 180,
+    width: 220,
     align: 'center',
     headerAlign: 'center',
     renderCell: ({ value }) => (
