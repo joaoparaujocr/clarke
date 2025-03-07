@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
+import CustomerSupplierHistory from "./customerSupplierHistory";
 
 @ObjectType()
 @Entity('customers')
@@ -14,7 +15,7 @@ export default class Customer extends BaseEntity {
   firstName: string
 
   @Field(() => String)
-  @Column({ name: 'last_name', type: 'varchar'})
+  @Column({ name: 'last_name', type: 'varchar' })
   lastName: string
 
   @Field(() => String)
@@ -32,8 +33,12 @@ export default class Customer extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
 
+  @Field(() => [CustomerSupplierHistory], { nullable: true })
+  @OneToMany(() => CustomerSupplierHistory, (history) => history.supplier)
+  supplierHistory: CustomerSupplierHistory[]
+
   constructor() {
     super();
-    if(!this.id) this.id = uuid()
+    if (!this.id) this.id = uuid()
   }
 }

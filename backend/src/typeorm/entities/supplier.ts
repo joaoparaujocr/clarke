@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { v4 as uuid } from "uuid";
+import CustomerSupplierHistory from "./customerSupplierHistory";
 
 @ObjectType()
 @Entity('suppliers')
@@ -14,13 +15,13 @@ export default class Supplier extends BaseEntity {
   name: string
 
   @Field(() => String)
-  @Column({ type: 'varchar', name: 'logo_url'})
+  @Column({ type: 'varchar', name: 'logo_url' })
   logoUrl: string
 
   @Field(() => String)
   @Column({ type: 'varchar' })
   state: string
-  
+
   @Field(() => Number)
   @Column({ type: 'decimal', name: 'cost_per_kwh', precision: 20, scale: 4 })
   costPerKwh: number
@@ -28,6 +29,10 @@ export default class Supplier extends BaseEntity {
   @Field(() => Number)
   @Column({ type: 'decimal', name: 'minimum_kwh_limit', precision: 20, scale: 4 })
   minimumKwhLimit: number
+
+  @Field(() => [CustomerSupplierHistory], { nullable: true })
+  @OneToMany(() => CustomerSupplierHistory, (history) => history.supplier)
+  customerHistory: CustomerSupplierHistory[]
 
   constructor() {
     super();
